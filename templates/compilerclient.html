@@ -1,0 +1,48 @@
+<html>
+
+<head>
+<title> Compiler </title>
+
+<style>
+body{
+background-color : #050505;
+}
+
+#code{
+font-size : 22px;
+}
+
+#output{
+background-color : #050505;
+color : #fff
+}
+
+
+</style>
+</head>
+
+<body>
+
+<form action = "{{ url_for('compile') }}" method = "POST">
+<select id = "language" name = "language" width = "230">
+<option value = "c">C</option>
+<option value = "cpp">C++</option>
+<option value = "java">Java</option>
+<option value = "python2">Python 2</option>
+<option value = "python3">Python 3</option>
+</select>
+<br/>
+<br/>
+<textarea  id = "code" name = "code" rows = 20 cols = 200>
+{% if codereturned %}{{codereturned}}{% endif %}
+</textarea>
+<br/>
+<br/>
+<button type = "submit">Compile and run</button>
+</form>
+
+<textarea id = "output" name = "output" rows = 15 cols = 100>
+{% if outputreturned %}{{outputreturned}}{% endif %}
+</textarea>
+</body>
+</html>
