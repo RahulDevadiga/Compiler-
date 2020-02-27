@@ -22,6 +22,7 @@ def compile():
 	print(code,lang)
 	client.send(b"".join([code.encode(), str(langId[lang]).encode()]))
 	compiledOutput = client.recv(4096)
-	return render_template('compilerclient.html',outputreturned = compiledOutput.decode(), codereturned = code)
+	client.close()
+	return render_template('compilerclient.html',outputreturned = compiledOutput.decode(), codereturned = code, langreturned = lang)
 	
 app.run(host = '127.0.0.1', port = 5000)
