@@ -26,10 +26,10 @@ color : #fff
 <form action = "{{ url_for('compile') }}" method = "POST">
 <select id = "language" name = "language" width = "230">
 <option value = "c">C</option>
-<option value = "cpp">C++</option>
-<option value = "java">Java</option>
-<option value = "python2">Python 2</option>
-<option value = "python3">Python 3</option>
+<option value = "cpp" selected>C++</option>
+<option value = "java" {% if langreturned == "java"  %}selected{% endif %}>Java</option>
+<option value = "python2" {% if langreturned == "python2" %}selected{% endif %}>Python 2</option>
+<option value = "python3" {% if langreturned == "python3" %}selected{% endif %}>Python 3</option>
 </select>
 <br/>
 <br/>
