@@ -3,6 +3,7 @@ import subprocess
 import socket
 import sys
 
+
 app = Flask(__name__)
 soc = None
 langId = {"c":0,"cpp":1,"java":2,"python2":3,"python3":4}
@@ -19,7 +20,7 @@ def home():
 		print("Connection Error")
 		sys.exit()
 	return render_template('compilerclient.html')
-	#return "hello"
+
 
 @app.route('/compile', methods = ['GET', 'POST'])
 def compile():
@@ -34,5 +35,13 @@ def compile():
 	
 	print("###################output returned ",outputreturned)
 	return render_template('compilerclient.html',outputreturned = outputreturned, codereturned = code, langreturned = lang)
+	
+
+
+@app.route('/quit')
+def quit():
+	global soc
+	soc.sendall(b"--QUIT--")
+	return "closed"
 	
 app.run(host = '127.0.0.1', port = 5000)

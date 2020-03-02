@@ -17,32 +17,60 @@ background-color : #050505;
 color : #fff
 }
 
+#submit{
+background-color : #00ff00;
+height : 30;
+}
+
+#close{
+background-color : #ff0000;
+height : 30;
+width  : 80;
+float : right;
+}
+
 
 </style>
 </head>
 
 <body>
 
+
+
 <form action = "{{ url_for('compile') }}" method = "POST">
 <select id = "language" name = "language" width = "230">
-<option value = "c">C</option>
-<option value = "cpp" {% if langreturned == "java"  %}selected{% endif %}>C++</option>
+<option value = "c" {% if langreturned == "c"  %}selected{% endif %}>C</option>
+<option value = "cpp" {% if langreturned == "cpp"  %}selected{% endif %}>C++</option>
 <option value = "java" {% if langreturned == "java"  %}selected{% endif %}>Java</option>
 <option value = "python2" {% if langreturned == "python2" %}selected{% endif %}>Python 2</option>
 <option value = "python3" {% if langreturned == "python3" %}selected{% endif %}>Python 3</option>
 </select>
+
+
+<a id= "close" href="{{ url_for('quit') }}">Close</a>
+
 <br/>
 <br/>
-<textarea  id = "code" name = "code" rows = 20 cols = 200>
+<textarea  id = "code" name = "code" rows = 12 cols = 200>
 {% if codereturned %}{{codereturned}}{% endif %}
 </textarea>
 <br/>
 <br/>
-<button type = "submit">Compile and run</button>
+<button type = "submit" id = "submit">Compile and run</button>
 </form>
 
-<textarea id = "output" name = "output" rows = 15 cols = 100>
+
+
+<textarea id = "output" name = "output" rows = 12 cols = 100>
 {% if outputreturned %}{{outputreturned}}{% endif %}
 </textarea>
+
+
 </body>
+
+
+
+<script type = "text/javascript" src = "{{ url_for('static' ,filename = 'mains.js') }}">
+
+</script>
 </html>
