@@ -13,7 +13,7 @@ def home():
 	global soc
 	soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	host = "127.0.0.1"
-	port = 8000
+	port = 1234
 	try:
 		soc.connect((host, port))
 	except:
