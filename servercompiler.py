@@ -37,20 +37,20 @@ def getOutput(code, lang):
 			
 			
 	elif lang == 'cpp':
-		with open("MainClass.c","w") as f:
+		with open("MainClass.cpp","w") as f:
 			f.write(code)
 		
-		output = subprocess.run(["gcc", "HelloWorld.c", "-o", "out1"], stdout = subprocess.PIPE)
+		output = subprocess.run(["g++", "MainClass.cpp", "-o", "out1"], stdout = subprocess.PIPE)
 		output = subprocess.run(["./out1"], stdout = subprocess.PIPE)
-		os.unlink("MainClass.c")
+		os.unlink("MainClass.cpp")
 			
 		
 	else:
-		with open("MainClass.cpp","w") as f:
+		with open("MainClass.c","w") as f:
 			f.write(code)
-		output = subprocess.run(["g++", "HelloWorld.c", "-o", "out1"], stdout = subprocess.PIPE)
+		output = subprocess.run(["gcc", "MainClass.c", "-o", "out1"], stdout = subprocess.PIPE)
 		output = subprocess.run(["./out1"], stdout = subprocess.PIPE)
-		os.unlink("MainClass.cpp")
+		os.unlink("MainClass.c")
 	if(output.returncode == 1):
 		return b'Error in the code'
 	
