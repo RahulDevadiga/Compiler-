@@ -90,6 +90,8 @@ def clientThread(connection, ip, port, max_buffer_size = 5120):
    while is_active:
       
       client_input = receive_input(connection, max_buffer_size)
+      if client_input == b"":
+         continue 
       if b"--QUIT--" in client_input:
          print("Client is requesting to quit")
          connection.close()
@@ -103,19 +105,26 @@ def clientThread(connection, ip, port, max_buffer_size = 5120):
          
 		 
 def receive_input(connection, max_buffer_size):
-   print("recieve input called")
-   client_input = connection.recv(max_buffer_size)
-   if(client_input == b'--QUIT--'):
-      return client_input
-   client_input_size = sys.getsizeof(client_input)
-   if client_input_size > max_buffer_size:
-      print("The input size is greater than expected {}".format(client_input_size))
-   from_client = client_input.decode("utf8").rstrip()
-   lang = langName[int(from_client[-1])]
-   code = from_client[:len(from_client)-1:]
-   output = getOutput(code, lang)
-   print("output ",output)
-   return output
+   #print("recieve input called")
+   try:
+      client_input = connection.recv(max_buffer_size)
+      if(client_input == b'--QUIT--'):
+         return client_input
+      client_input_size = sys.getsizeof(client_input)
+      if client_input_size > max_buffer_size:
+         print("The input size is greater than expected {}".format(client_input_size))
+   
+      from_client = client_input.decode("utf8").rstrip()
+      lang = langName[int(from_client[-1])]
+      code = from_client[:len(from_client)-1:]
+      output = getOutput(code, lang)
+      print("output ",output)
+      if output == b"" or output == b"":
+         return b"".join([output, b"--No output returned--"])
+      else:
+         return output
+   except:
+      return b"".join([output, b"--No output returned--"])
   
    
 langName = {0:"c",1:"cpp",2:"java",3:"python2",4:"python3"}
