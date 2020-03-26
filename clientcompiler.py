@@ -12,7 +12,7 @@ langId = {"c":0,"cpp":1,"java":2,"python2":3,"python3":4}
 def home():
 	global soc
 	soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	host = "127.0.0.1"
+	host = "127.0.0.1"     #Enter IP address of the load balancer here
 	port = 1234
 	try:
 		soc.connect((host, port))
@@ -33,7 +33,7 @@ def compile():
 	soc.sendall(b"".join([code.encode(), str(langId[lang]).encode()]))
 	outputreturned = soc.recv(5120).decode("utf8")
 	
-	print("###################output returned ",outputreturned)
+	print("################### output returned ",outputreturned)
 	return render_template('compilerclient.html',outputreturned = outputreturned, codereturned = code, langreturned = lang)
 	
 
