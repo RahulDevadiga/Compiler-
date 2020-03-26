@@ -1,76 +1,72 @@
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-<title> Compiler </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<style>
-body{
-background-color : #050505;
-}
-
-#code{
-font-size : 22px;
-}
-
-#output{
-background-color : #050505;
-color : #fff
-}
-
-#submit{
-background-color : #00ff00;
-height : 30;
-}
-
-#close{
-background-color : #ff0000;
-height : 30;
-width  : 80;
-float : right;
-}
-
-
-</style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Compiler</title>
 </head>
 
 <body>
+    <div class="container">
+        <h1 class="text-center pt-2">Compiler
+            <img src="icon.svg" alt="icon" style="width: 64px;">
+            <a class="btn btn-outline-danger  float-right mt-2" id="close" href="{{ url_for('quit') }}">Close</a>
+
+        </h1>
+
+
+        <form action="{{ url_for('compile') }}" method="POST">
+            <select class="form-control" id="language" name="language" width="230">
+                <option value="c" {% if langreturned == "c"  %}selected{% endif %}>C</option>
+                <option value="cpp" {% if langreturned == "cpp"  %}selected{% endif %}>C++</option>
+                <option value="java" {% if langreturned == "java"  %}selected{% endif %}>Java</option>
+                <option value="python2" {% if langreturned == "python2" %}selected{% endif %}>Python 2</option>
+                <option value="python3" {% if langreturned == "python3" %}selected{% endif %}>Python 3</option>
+            </select>
 
 
 
-<form action = "{{ url_for('compile') }}" method = "POST">
-<select id = "language" name = "language" width = "230">
-<option value = "c" {% if langreturned == "c"  %}selected{% endif %}>C</option>
-<option value = "cpp" {% if langreturned == "cpp"  %}selected{% endif %}>C++</option>
-<option value = "java" {% if langreturned == "java"  %}selected{% endif %}>Java</option>
-<option value = "python2" {% if langreturned == "python2" %}selected{% endif %}>Python 2</option>
-<option value = "python3" {% if langreturned == "python3" %}selected{% endif %}>Python 3</option>
-</select>
+            <textarea class="form-control  bg-light text-dark my-3" id="code" name="code" rows=12 cols=200>
+    {% if codereturned %}{{codereturned}}{% endif %}
+    </textarea>
+
+            <button class="btn btn-primary my-1" type="submit" id="submit">Compile and run</button>
+        </form>
 
 
-<a id= "close" href="{{ url_for('quit') }}">Close</a>
+        <br />
+        <h2>Output</h2>
+        <div class="console mb-3">
+            <header>
+                <p>guest@antoineneff</p>
+            </header>
+            <div class="consolebody">
+                <label  id="output" name="output" rows=12 cols=100>
+                    {% if outputreturned %}{{outputreturned}}{% endif %}
+                </label>
+            </div>
+        </div>
+    </div>
 
-<br/>
-<br/>
-<textarea  id = "code" name = "code" rows = 12 cols = 200>
-{% if codereturned %}{{codereturned}}{% endif %}
-</textarea>
-<br/>
-<br/>
-<button type = "submit" id = "submit">Compile and run</button>
-</form>
-
-
-
-<textarea id = "output" name = "output" rows = 12 cols = 100>
-{% if outputreturned %}{{outputreturned}}{% endif %}
-</textarea>
-
-
+    <script type="text/javascript" src="{{ url_for('static' ,filename = 'mains.js') }}">
+    </script?
+ <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 
-
-
-<script type = "text/javascript" src = "{{ url_for('static' ,filename = 'mains.js') }}">
-
-</script>
 </html>
