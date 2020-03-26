@@ -24,6 +24,18 @@
   for server ->
       Python2, Python3, C, Java, C++ compilers 
       
+    First run servercompiler.py in all the servers  
+        python3 servercompiler.py
+
+    Run a loadbalancer by command
+        python3 loadbalancer.py
+
+    Run clientcompiler in all the client machines
+        python3 clientcompiler.py
+        
+       
+
+
   
       
   
