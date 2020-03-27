@@ -112,8 +112,8 @@ def receive_input(connection, max_buffer_size):
   
 noOfServers = int(input("Enter the number of servers "))
 for i in range(noOfServers):
-	serverIpAddress = input(f"Enter the ip address of {i+1}th server")
-	serverPortNumber = input(f"Enter the port number of {i+1}th server")
+	serverIpAddress = input("Enter the ip address of {i+1}th server")
+	serverPortNumber = input("Enter the port number of {i+1}th server")
 	serverAddress = (serverIpAddress, serverPortNumber)
 	loadOfServer[(serverIpAddress, serverPortNumber)] = 0
 	serverToClientMapping[serverAddress] = []

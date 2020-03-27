@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Fira+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Compiler</title>
 </head>
 
 <body>
     <div class="container">
         <h1 class="text-center pt-2">Compiler
-            <img src="icon.svg" alt="icon" style="width: 64px;">
+            <img src="{{ url_for('static', filename='icon.svg') }}" alt="icon" style="width: 64px;">
             <a class="btn btn-outline-danger  float-right mt-2" id="close" href="{{ url_for('quit') }}">Close</a>
 
         </h1>
