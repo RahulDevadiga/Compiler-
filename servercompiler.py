@@ -90,9 +90,11 @@ def clientThread(connection, ip, port, max_buffer_size = 5120):
    while is_active:
       
       client_input = receive_input(connection, max_buffer_size)
-      if client_input == b"":
+      if client_input is None:
+         continue
+      elif client_input == b"":
          continue 
-      if b"--QUIT--" in client_input:
+      elif b"--QUIT--" in client_input:
          print("Client is requesting to quit")
          connection.close()
          print("Connection " + ip + ":" + port + " closed")
@@ -119,12 +121,12 @@ def receive_input(connection, max_buffer_size):
       code = from_client[:len(from_client)-1:]
       output = getOutput(code, lang)
       print("output ",output)
-      if output == b"" or output == b"":
-         return b"".join([output, b"--No output returned--"])
+      if output == b"":
+         return b"--No output returned--"
       else:
          return output
    except:
-      return b"".join([output, b"--No output returned--"])
+      return None
   
    
 langName = {0:"c",1:"cpp",2:"java",3:"python2",4:"python3"}
