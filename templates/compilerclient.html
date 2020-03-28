@@ -34,15 +34,11 @@
 
 
 
-            <textarea class="form-control  bg-light text-dark my-3" id="code" name="code" rows=12 cols=200>
-    {% if codereturned %}{{codereturned}}{% endif %}
-    </textarea>
+            <textarea class="form-control  bg-light text-dark my-3" id="code" name="code" rows=12 cols=200>{% if codereturned %}{{codereturned}}{% endif %}</textarea>
 
             <button class="btn btn-primary my-1" type="submit" id="submit">Compile and run</button>
         </form>
 
-
-        <br />
         <h2>Output</h2>
         <div class="console mb-3">
             <header>
