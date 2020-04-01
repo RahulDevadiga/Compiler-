@@ -88,46 +88,22 @@ def clientThread(connection, ip, port, max_buffer_size = 5120):
    global noOfActiveClients
    is_active = True
    while is_active:
-      
-      client_input = receive_input(connection, max_buffer_size)
-      if client_input is None:
-         continue
-      elif client_input == b"":
-         continue 
-      elif b"--QUIT--" in client_input:
-         print("Client is requesting to quit")
-         connection.close()
-         print("Connection " + ip + ":" + port + " closed")
-         noOfActiveClients -= 1
-         print("No of active clients ", noOfActiveClients)
-         is_active = False
-      else:
-         print("Processed result: {}".format(client_input))
-         connection.sendall(client_input)
-         
-		 
-def receive_input(connection, max_buffer_size):
-   #print("recieve input called")
-   try:
       client_input = connection.recv(max_buffer_size)
-      if(client_input == b'--QUIT--'):
-         return client_input
-      client_input_size = sys.getsizeof(client_input)
-      if client_input_size > max_buffer_size:
-         print("The input size is greater than expected {}".format(client_input_size))
-   
       from_client = client_input.decode("utf8").rstrip()
-      lang = langName[int(from_client[-1])]
-      code = from_client[:len(from_client)-1:]
-      output = getOutput(code, lang)
-      print("output ",output)
-      if output == b"":
-         return b"--No output returned--"
-      else:
-         return output
-   except:
-      return None
-  
-   
+      try:
+          lang = langName[int(from_client[-1])]      
+          code = from_client[:len(from_client)-1:]
+          output = getOutput(code, lang)
+          print("output ",output)
+          if output == b"":
+             output =  b"--No output returned--"
+     
+      
+      
+          print("Processed result: {}".format(output))
+          connection.sendall(output)
+      except:
+          connection.sendall(b"")
+         
 langName = {0:"c",1:"cpp",2:"java",3:"python2",4:"python3"}
 start_server()
